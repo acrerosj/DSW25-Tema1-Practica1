@@ -30,6 +30,7 @@ if (!isset($_GET['id']) || !array_key_exists($_GET['id'], $animales)) {
   // Las imagenes se encuentran en la carpeta images y los PDFs en la carpeta pdf.
   // No se mostrará la imagen hasta que no se suba un archivo imagen para el animal.
 
+  printf("<p><a href='update-animal.php?id=%d'>Actualizar Imagen y PDF</a></p>", $animal_id);
 
   // Incluir el pie de página.
   include '../includes/footer.php';
