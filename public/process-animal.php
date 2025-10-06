@@ -82,51 +82,27 @@ if (count($error) > 0) {
   }
   echo "</ul>";
 
-  // Comprobamos si se ha enviado un archivo de imagen.
-  if (!isset($_FILES['imagen']) || $_FILES['imagen']['error'] === UPLOAD_ERR_NO_FILE) {
-    echo "<p>No se ha enviado ninguna imagen.</p>";
-  } elseif ($_FILES['imagen']['error'] !== UPLOAD_ERR_OK) {
-    echo "<p>Error al subir la imagen.</p>";
-  } else {
-    // El archivo se ha subido correctamente.
+  // Incluimos el archivo de funciones para subir los archivos.
 
-    // Comprobamos que el tipo de archivo es una imagen.
-    $tiposPermitidos = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-    if (!in_array($_FILES['imagen']['type'], $tiposPermitidos)) {
-      echo "<p>El archivo subido no es una imagen válida.</p>";
-    } else {
-      // Movemos el archivo a la carpeta uploads.
-      $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
-      $nombreImagen = $id . '.' . $extension; 
-      $rutaDestino = 'uploads/images/' . $nombreImagen;
-      if (move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino)) {
-        printf("<img src='%s' alt='Imagen de %s' style='max-width:300px;'/></p>", $rutaDestino, $nombre); 
-      } else {
-        echo "<p>Error al mover la imagen a la carpeta de destino.</p>";
-      }
-    }
+  require '../includes/functions.php';
+  // Comprobamos si se ha enviado un archivo de imagen.
+  $subirImagen = subirFichero($_FILES['imagen'], $id, ['image/jpeg', 'image/jpg'], 'images');
+  if ($subirImagen !== null) {
+    echo "<p>$subirImagen</p>";
+  } else {
+    $nombreImagen = $id . '.jpg';
+    $rutaImagen = 'uploads/images/' . $nombreImagen;
+    printf("<img src='%s' alt='Imagen de %s'>", $rutaImagen, $nombre);
   }
 
   // Comprobamos si se ha enviado un archivo PDF.
-  if (!isset($_FILES['pdf']) || $_FILES['pdf']['error'] === UPLOAD_ERR_NO_FILE) {
-    echo "<p>No se ha enviado ningún archivo PDF.</p>";
-  } elseif ($_FILES['pdf']['error'] !== UPLOAD_ERR_OK) {
-    echo "<p>Error al subir el archivo PDF.</p>";
+  $subirPdf = subirFichero($_FILES['pdf'], $id, ['application/pdf'], 'pdfs');
+  if ($subirPdf !== null) {
+    echo "<p>$subirPdf</p>";
   } else {
-    // El archivo se ha subido correctamente.
-    // Comprobamos que el tipo de archivo es un PDF.
-    if ($_FILES['pdf']['type'] !== 'application/pdf') {
-      echo "<p>El archivo subido no es un PDF válido.</p>";
-    } else {
-      // Movemos el archivo a la carpeta uploads.
-      $nombrePdf = $id . '.pdf';
-      $rutaDestino = 'uploads/pdfs/' . $nombrePdf;
-      if (move_uploaded_file($_FILES['pdf']['tmp_name'], $rutaDestino)) {
-        printf("<p><a href='%s' target='_blank'>Ver ficha en PDF</a></p>", $rutaDestino); 
-      } else {
-        echo "<p>Error al mover el archivo PDF a la carpeta de destino.</p>";
-      }
-    }
+    $nombrePdf = $id . '.pdf';
+    $rutaPdf = 'uploads/pdfs/' . $nombrePdf;
+    printf("<p><a href='%s' target='_blank'>Ver ficha en PDF</a></p>", $rutaPdf);
   }
 }
 
