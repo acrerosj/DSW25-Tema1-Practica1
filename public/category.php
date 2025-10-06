@@ -4,7 +4,7 @@
 require '../data/datos.php';
 
 if (!isset($_GET['id']) || !array_key_exists($_GET['id'], $categorias)) {
-  // Si no se ha proporcionado una categoría válida, redirigir a la página de inicio.
+  // Si no se ha proporcionado una categoría válida, mostrar error.
   echo "ERROR: la categoría no es válida.";
 } else {
   $categoria_id = $_GET['id'];
