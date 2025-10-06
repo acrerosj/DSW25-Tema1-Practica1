@@ -10,7 +10,7 @@ include '../includes/header.php';
 // Mostrar el formulario de registro de un nuevo animal.
 ?>
 <h2>Registrar Nuevo Animal</h2>
-<form action="process_animal.php" method="post" enctype="multipart/form-data">
+<form action="process-animal.php" method="post" enctype="multipart/form-data">
   <p>
 
     <label for="categoria">Categoría:</label>
