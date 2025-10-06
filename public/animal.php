@@ -9,7 +9,7 @@ if (!isset($_GET['id']) || !array_key_exists($_GET['id'], $animales)) {
 } else {
   $animal_id = $_GET['id'];
   $animal = $animales[$animal_id];
-  $titulo_pagina = "Categoría: $animal[nombre]";
+  $titulo_pagina = "Animal: $animal[nombre]";
   include '../includes/header.php';
 
   // Busca en el array $categorias la información de la categoría correspondiente y muestra su nombre y descripción.
