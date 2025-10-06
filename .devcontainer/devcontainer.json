@@ -1,0 +1,17 @@
+{
+    // Nombre del contenedor
+    "name": "DSW25-Tema1-Practica1",
+
+    // Imagen base para el contenedor. Buscamun un PHP oficial y simple.
+    "image": "php:8.4-rc-cli-bookworm",
+
+    // El puerto enlace entre contenedor y local
+    "forwardPorts": [8080],
+
+    // Ejecutar cuando se arranque.
+    "postStartCommand": "php -S 0.0.0.0:8080 -t public/",
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {}
+    }
+}
+ 
